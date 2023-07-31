@@ -16,7 +16,7 @@ for t=1:T
     Y(t) = a*t^2 + b*t + c;
     
     if t >= 0.75*T
-        Y(t) = 0;    %Retired from T = 60 onwards
+        Y(t) = 0;    %Retired from t = 60 onwards if T = 80
     end
     
 end
