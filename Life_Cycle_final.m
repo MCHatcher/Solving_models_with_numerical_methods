@@ -53,7 +53,7 @@ for i=1:Nguess
         %Equals CCheck only if A(T) = 0; 
         
         gap(i) = abs(CCheck - C(T));
-        %Equal to -A(T)
+        %Equal to abs(-A(T))
 
 end
     
