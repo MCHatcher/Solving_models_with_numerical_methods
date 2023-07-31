@@ -39,17 +39,19 @@ MN3 = max(U); %row vector containing max for each column (note: not transposed)
 Index_B
 
 disp('Optimal holding of shares is') 
-Sstar = Sguess(Index_S)
+Sguess(Index_S)
 disp('Optimal holding of bonds is') 
-Bstar = Bguess(Index_B)
+Bguess(Index_B)
 
+Bstar = Bguess(Index_B);
+Sstar = Sguess(Index_S);
 C1star = Y1 - Sstar - Bstar;
 C2_1star = (1+r)*Bstar + (1+r+eps1)*Sstar;
 C2_2star = (1+r)*Bstar + (1+r+eps2)*Sstar;
 
 %Check that FOCs hold
-Resid = 1/C1star - beta*(1+r)*(p/C2_1star + (1-p)/C2_2star) 
-Resid2  = 1/C1star - beta*( p*(1+r+eps1)/C2_1star + (1-p)*(1+r+eps2)/C2_2star )
+Resid = abs( 1/C1star - beta*(1+r)*(p/C2_1star + (1-p)/C2_2star) )
+Resid2  = abs( 1/C1star - beta*( p*(1+r+eps1)/C2_1star + (1-p)*(1+r+eps2)/C2_2star ) )
 
 %Plot results
 T = 40; %Window around optimum (see below)
