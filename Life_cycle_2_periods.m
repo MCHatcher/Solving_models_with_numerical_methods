@@ -7,24 +7,22 @@ clear; clc;
 beta = 0.96; r = 0.05; Y1 = 1; p = 0.5;
 eps1 = 0.5; eps2 = 1.05;
 Nguess = 8000; 
+Sguess = NaN(Nguess,1); U = Sguess;
+
+S_vec = linspace(0,Y1,Nguess);  %Vector of guesses for S
 
 for i=1:Nguess
     
-    Sguess(i) =  i/(Nguess-1);
+    Sguess(i) =  S_vec(i);
     S = Sguess(i);
     C1 = Y1 - S;
     C2_1 = eps1 + (1+r)*S; 
-    C2_2 = eps2 +(1+r)*S;
+    C2_2 = eps2 + (1+r)*S;
     
     U(i) = log(C1) + beta*( p*log(C2_1) + (1-p)*log(C2_2) );
-    
-    H(i) = isreal(U(i));    
-    if H(i) == 0, 
+       
+    if ~isreal(U(i)) || C1 <= 0 || C2_1 <= 0 || C2_2 <= 0  
         U(i) = -1e100;     %Not sensible economic solutions
-    end
-    
-    if C1 < 0, 
-        U(i) = -1e100;      %Negative consumption would never be chosen
     end
     
 end
@@ -33,14 +31,15 @@ end
 [Umax, IndexU] = max(U);        %IndexU is the location of the optimal value
 
 disp('Optimal holding of shares is') 
-Sstar = Sguess(IndexU)
+Sguess(IndexU)
 
+Sstar = Sguess(IndexU);
 C1star = Y1 - Sstar;
 C2_1star = eps1 + (1+r)*Sstar;
 C2_2star = eps2 + (1+r)*Sstar;
 
 %Check that FOC holds
-Resid = (1/C1star - beta*(1+r)*(p/C2_1star + (1-p)/C2_2star) )^2;
+Resid = abs(1/C1star - beta*(1+r)*(p/C2_1star + (1-p)/C2_2star) )
 
 %Plot results
 T = 1000; %Window around optimum (see below)
