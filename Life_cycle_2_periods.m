@@ -1,4 +1,4 @@
-% Two-period life-cycle model (stocks only)
+% Two-period life-cycle model (saving in riskless bond only)
 % Written by Michael Hatcher (m.c.hatcher@soton.ac.uk) in 2017.
 
 clear; clc;
@@ -22,7 +22,7 @@ for i=1:Nguess
     U(i) = log(C1) + beta*( p*log(C2_1) + (1-p)*log(C2_2) );
        
     if ~isreal(U(i)) || C1 <= 0 || C2_1 <= 0 || C2_2 <= 0  
-        U(i) = -1e100;     %Not sensible economic solutions
+        U(i) = -realmax;     %Not sensible economic solutions
     end
     
 end
