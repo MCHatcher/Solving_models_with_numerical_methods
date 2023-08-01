@@ -1,4 +1,4 @@
-% Two-period life-cycle model (saving in riskless bond only)
+% Two-period life-cycle model with income risk (saving in riskless bond only)
 % Written by Michael Hatcher (m.c.hatcher@soton.ac.uk) in 2017.
 
 clear; clc;
